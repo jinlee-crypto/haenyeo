@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JH-ARC · Jeju Haenyeo Aging and Resilience Cohort</title>
+<meta name="description" content="A matched cohort tracking how a lifetime of breath-hold diving and cold-water exposure shapes ageing and disease in Jeju's haenyeo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --surface:#E7EDE9;      /* sea-glass */
+    --paper:#F3F7F4;
+    --ink:#101715;          /* basalt */
+    --deep:#123029;         /* depth */
+    --moss:#3E6F62;         /* kelp */
+    --muted:#6F817B;
+    --buoy:#FF6B35;         /* tewak float */
+    --line:rgba(16,23,21,.14);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--surface); color:var(--ink);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  .shell{position:relative; max-width:660px; margin:0 auto; padding:0 20px 0 38px}
+  .rule{
+    position:absolute; left:14px; top:0; bottom:0; width:1px;
+    background:linear-gradient(to bottom,rgba(16,23,21,0) 0,var(--line) 40px,var(--line) calc(100% - 120px),rgba(16,23,21,0) 100%);
+    transform-origin:top; animation:drop 1.1s cubic-bezier(.16,.84,.44,1) both;
+  }
+  @keyframes drop{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+  .depth{
+    position:absolute; left:-24px; top:.5em;
+    font-family:"Archivo",sans-serif; font-size:10px; font-weight:500;
+    letter-spacing:.1em; color:var(--muted); font-variant-numeric:tabular-nums; white-space:nowrap;
+  }
+  .depth::before{content:""; position:absolute; left:-10px; top:.7em; width:9px; height:1px; background:var(--buoy)}
+
+  section{position:relative; padding:34px 0; border-top:1px solid var(--line)}
+  header{padding:46px 0 8px; position:relative}
+  .mark{font-family:"Archivo",sans-serif; font-size:11px; font-weight:700; letter-spacing:.24em; color:var(--buoy); margin:0 0 18px}
+  h1{
+    margin:0; font-family:"Archivo",sans-serif; font-weight:800;
+    font-size:clamp(30px,8.4vw,44px); line-height:1.08; letter-spacing:-.025em; color:var(--deep);
+  }
+  .sub{margin:14px 0 0; font-size:clamp(16px,4.4vw,19px); line-height:1.58; max-width:36ch; font-weight:500}
+  .sub b{font-weight:700; color:var(--deep); box-shadow:inset 0 -.4em 0 rgba(255,107,53,.22)}
+  h2{
+    margin:0 0 18px; font-family:"Archivo",sans-serif; font-size:12px; font-weight:700;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--muted);
+  }
+  p.lead{margin:0 0 20px; color:#2A3733; font-size:15px}
+
+  /* cohort facts */
+  .facts{display:grid; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:3px; overflow:hidden}
+  .fact{background:var(--paper); padding:14px 16px}
+  .fact dt{font-size:10px; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); margin:0 0 3px}
+  .fact dd{margin:0; font-size:15px; font-weight:600; color:var(--deep); font-variant-numeric:tabular-nums}
+  .fact dd span{font-weight:400; color:var(--muted); font-size:13px}
+
+  /* findings */
+  ul.find{list-style:none; margin:0; padding:0}
+  ul.find li{display:flex; gap:14px; align-items:baseline; padding:13px 0; border-bottom:1px dotted var(--line)}
+  ul.find li:last-child{border-bottom:0}
+  .val{
+    flex:0 0 76px; text-align:right;
+    font-family:"Archivo",sans-serif; font-weight:700; font-size:21px;
+    color:var(--deep); font-variant-numeric:tabular-nums; letter-spacing:-.02em; line-height:1.2;
+  }
+  .val.null{color:var(--muted); font-size:15px; font-weight:500}
+  .val em{display:block; font-style:normal; font-size:9px; font-weight:500; letter-spacing:.12em; color:var(--muted); text-transform:uppercase}
+  .txt .t{font-weight:600; color:var(--ink); display:block}
+  .txt .m{display:block; font-size:13px; color:var(--muted); line-height:1.5}
+
+  /* ongoing */
+  ul.run{list-style:none; margin:0; padding:0}
+  ul.run li{display:flex; gap:12px; align-items:baseline; padding:11px 0; border-bottom:1px dotted var(--line)}
+  ul.run li:last-child{border-bottom:0}
+  .pill{
+    flex:0 0 auto; min-width:64px; text-align:center; font-family:"Archivo",sans-serif;
+    font-size:9px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+    padding:3px 6px; border-radius:2px; line-height:1.6;
+  }
+  .p-rev{background:rgba(255,107,53,.16); color:#A33F17}
+  .p-run{background:rgba(62,111,98,.14); color:var(--moss)}
+
+  .contact{background:var(--deep); color:var(--paper); border-radius:3px; padding:22px}
+  .contact p{margin:0 0 14px; font-size:15px; line-height:1.6; color:rgba(243,247,244,.82)}
+  .contact a{display:inline-block; color:var(--paper); font-weight:600; font-size:16px; text-decoration:none; border-bottom:2px solid var(--buoy); padding-bottom:2px}
+  footer{padding:26px 0 60px; font-size:12px; color:var(--muted)}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="rule" aria-hidden="true"></div>
+
+  <header>
+    <p class="mark">JH-ARC</p>
+    <h1>Jeju Haenyeo Aging and Resilience Cohort</h1>
+    <p class="sub">What does a lifetime of breath-hold diving and cold-water exposure leave behind in <b>ageing and disease</b>?</p>
+  </header>
+
+  <section>
+    <span class="depth" aria-hidden="true">5 m</span>
+    <h2>The cohort</h2>
+    <p class="lead">Haenyeo are women who have dived for shellfish off Jeju without breathing apparatus, often for fifty years or more. We follow them against matched island residents using hospital records linked to deep phenotyping.</p>
+    <dl class="facts">
+      <div class="fact"><dt>Participants</dt><dd>8,868 haenyeo <span>· 26,604 matched controls (1:3)</span></dd></div>
+      <div class="fact"><dt>Observation</dt><dd>2004–2023 <span>· Jeju National University Hospital CDW</span></dd></div>
+      <div class="fact"><dt>Linkage</dt><dd>Jeju Genome Project <span>· deep phenotyping, multi-omics</span></dd></div>
+      <div class="fact"><dt>Design</dt><dd>Matched retrospective cohort <span>· clinical text from 2009</span></dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <span class="depth" aria-hidden="true">10 m</span>
+    <h2>What we have found</h2>
+    <ul class="find">
+      <li><span class="val">1.19<em>aPR</em></span><span class="txt"><span class="t">Nasal cavity disease</span><span class="m">Upper airway burden raised across diagnostic groups · <i>Rhinology</i>, 2026</span></span></li>
+      <li><span class="val">0.86<em>HR</em></span><span class="txt"><span class="t">Knee osteoarthritis progression</span><span class="m">Slower progression to replacement, robust to BMI · <i>Occupational Medicine</i>, 2026</span></span></li>
+      <li><span class="val">1.35<em>sRR</em></span><span class="txt"><span class="t">Gastro-oesophageal reflux</span><span class="m">Excess confined to GERD; laryngopharyngeal reflux null</span></span></li>
+      <li><span class="val">1.60<em>IRR</em></span><span class="txt"><span class="t">Acute eye infection</span><span class="m">With ENT 1.54 and viral 1.42 — an excess tracking marine immersion</span></span></li>
+      <li><span class="val">2.01<em>PR</em></span><span class="txt"><span class="t">Glaucoma with middle ear disease</span><span class="m">Conditions co-occur beyond chance; nasal disease with conjunctivitis 1.74</span></span></li>
+    </ul>
+  </section>
+
+  <section>
+    <span class="depth" aria-hidden="true">15 m</span>
+    <h2>Under way</h2>
+    <ul class="run">
+      <li><span class="pill p-rev">In review</span><span class="txt"><span class="t">Hearing and vestibular function</span></span></li>
+      <li><span class="pill p-rev">In review</span><span class="txt"><span class="t">Ocular morbidity and intraocular pressure</span></span></li>
+      <li><span class="pill p-run">Ongoing</span><span class="txt"><span class="t">Burden of disease across the full diagnostic range</span></span></li>
+      <li><span class="pill p-run">Ongoing</span><span class="txt"><span class="t">Cohort profile and protocol paper</span></span></li>
+      <li><span class="pill p-run">Ongoing</span><span class="txt"><span class="t">Frailty index by domain</span><span class="m">Does lifelong work prevent frailty, or change its shape?</span></span></li>
+      <li><span class="pill p-run">Ongoing</span><span class="txt"><span class="t">Older women still in work</span><span class="m">Haenyeo vs other working vs non-working</span></span></li>
+      <li><span class="pill p-run">Ongoing</span><span class="txt"><span class="t">Sleep, Ménière's disease, glaucoma and brain disease</span></span></li>
+    </ul>
+  </section>
+
+  <section>
+    <span class="depth" aria-hidden="true">20 m</span>
+    <h2>Get in touch</h2>
+    <div class="contact">
+      <p>Bring a clinical question and we will build the design and the analysis around it. We welcome enquiries about collaboration and data access.</p>
+      <a href="mailto:name@example.com">name@example.com</a>
+    </div>
+  </section>
+
+  <footer>Haenyeo Health Research Center, Jeju National University Hospital · Updated August 2026</footer>
+</div>
+</body>
+</html>
